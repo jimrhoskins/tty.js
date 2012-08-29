@@ -52,6 +52,32 @@ tty.elements;
 /**
  * Open
  */
+var fontRule = null
+window.setFontSize = function (relative, absolute) {
+  getFontRule();
+  console.log(fontRule)
+  if(fontRule == null) return;
+
+  if(absolute){
+    fontRule.style.fontSize = absolute + "px"
+  }else{
+    size = parseInt(fontRule.style.fontSize, 10);
+    fontRule.style.fontSize = (size + relative) + "px"
+  }
+}
+
+function getFontRule(){
+  if(fontRule) return;
+  for(var i=0; i < document.styleSheets.length; i++){
+    var sheet = document.styleSheets[i];
+    for (var j=0; j < sheet.cssRules.length; j++){
+      if(sheet.cssRules[j].selectorText === ".terminal"){
+        fontRule = sheet.cssRules[j];
+        return
+      }
+    }
+  }
+}
 
 tty.open = function() {
   tty.socket = io.connect();
@@ -63,7 +89,10 @@ tty.open = function() {
     body: document.body,
     h1: document.getElementsByTagName('h1')[0],
     open: document.getElementById('open'),
-    lights: document.getElementById('lights')
+    lights: document.getElementById('lights'),
+    textSmall: document.getElementById('textSmall'),
+    textNormal: document.getElementById('textNormal'),
+    textLarge: document.getElementById('textLarge'),
   };
 
   root = tty.elements.root;
@@ -71,6 +100,10 @@ tty.open = function() {
   h1 = tty.elements.h1;
   open = tty.elements.open;
   lights = tty.elements.lights;
+  textSmall = tty.elements.textSmall;
+  textLarge = tty.elements.textLarge;
+  textNormal = tty.elements.textNormal;
+
 
   if (open) {
     on(open, 'click', function() {
@@ -82,6 +115,22 @@ tty.open = function() {
     on(lights, 'click', function() {
       tty.toggleLights();
     });
+  }
+
+  if (textSmall){
+    on(textSmall, 'click', function (){
+      setFontSize(-1)
+    })
+  }
+  if (textLarge){
+    on(textLarge, 'click', function (){
+      setFontSize(1)
+    })
+  }
+  if (textNormal){
+    on(textNormal, 'click', function (){
+      setFontSize(0, 12)
+    })
   }
 
   tty.socket.on('connect', function() {
@@ -203,7 +252,7 @@ function Window(socket) {
   el.className = 'window';
 
   grip = document.createElement('div');
-  grip.className = 'grip';
+  grip.className = 'grip ';
 
   bar = document.createElement('div');
   bar.className = 'bar';
@@ -346,7 +395,7 @@ Window.prototype.drag = function(ev) {
     el.style.left =
       (drag.left + ev.pageX - drag.pageX) + 'px';
     el.style.top =
-      (drag.top + ev.pageY - drag.pageY) + 'px';
+      Math.max(44, (drag.top + ev.pageY - drag.pageY)) + 'px';
   }
 
   function up() {
@@ -915,6 +964,8 @@ tty.Terminal = Terminal;
 
 this.tty = tty;
 
+
 }).call(function() {
   return this || (typeof window !== 'undefined' ? window : global);
 }());
+

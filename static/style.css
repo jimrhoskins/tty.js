@@ -3,19 +3,10 @@
  * Copyright (c) 2012, Christopher Jeffrey (MIT License)
  */
 
-html, body {
-  margin: 0;
-  padding: 0;
-}
 
-div {
-  border: 0;
-  padding: 0;
-  margin: 0;
-}
 
 html {
-  background: #fff;
+  background: #fff url('http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/low_contrast_linen.png');
 }
 
 html.dark {
@@ -26,9 +17,7 @@ html.maximized {
   overflow: hidden;
 }
 
-body {
-  margin: 25px;
-}
+
 
 /* Only allow plaintext?
 [contenteditable=""],
@@ -46,10 +35,20 @@ body {
   border: #fafafa solid 1px;
   background: #272829;
   position: absolute;
-  top: 20px;
+  top: 80px;
   left: 20px;
   z-index: 1000;
   box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 20px;
+}
+
+.window-full {
+  background: #red;
+  position: absolute;
+}
+
+.window-full .bar,
+.window-full .grip{
+  display: none;
 }
 
 .maximized .window {
@@ -113,9 +112,14 @@ body {
 .terminal {
   border: #000 solid 5px;
   font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
-  font-size: 11px;
+  font-size: 14px;
+  line-height: 1.2em;
   color: #f0f0f0;
   background: #000;
+}
+
+.terminal > div {
+  white-space: nowrap;
 }
 
 .reverse-video {
@@ -137,40 +141,40 @@ h1 {
   border-top: #e15729 solid 10px;
 }
 
-#open, #lights {
-  font: 20px/1.5 sans-serif;
-  position: fixed;
-  right: 0;
-  padding: 10px;
-  height: 50px;
-  color: white;
-  cursor: pointer;
-  margin: 0;
-  background: none;
-  border: none;
-  -webkit-appearance: none;
-}
+/*#open, #lights {*/
+  /*font: 20px/1.5 sans-serif;*/
+  /*position: fixed;*/
+  /*right: 0;*/
+  /*padding: 10px;*/
+  /*height: 50px;*/
+  /*color: white;*/
+  /*cursor: pointer;*/
+  /*margin: 0;*/
+  /*background: none;*/
+  /*border: none;*/
+  /*-webkit-appearance: none;*/
+/*}*/
 
-#open {
-  top: 10px;
-  background: #333;
-}
+/*#open {*/
+  /*top: 10px;*/
+  /*background: #333;*/
+/*}*/
 
-#lights {
-  font-size: 18px;
-  height: 46px;
-  top: 60px;
-  background: #555;
-}
+/*#lights {*/
+  /*font-size: 18px;*/
+  /*height: 46px;*/
+  /*top: 60px;*/
+  /*background: #555;*/
+/*}*/
 
-#open:hover, #lights:hover {
-  color: slategrey;
-  background: white;
-}
+/*#open:hover, #lights:hover {*/
+  /*color: slategrey;*/
+  /*background: white;*/
+/*}*/
 
-#open:active, #lights:active {
-  color: orange;
-}
+/*#open:active, #lights:active {*/
+  /*color: orange;*/
+/*}*/
 
 #help {
   font: 12px/1.5 sans-serif;

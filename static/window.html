@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>tty.js</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/user.css">
+</head>
+
+<body>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/term.js"></script>
+  <script src="/options.js"></script>
+  <script src="/tty.js"></script>
+  <script src="/user.js"></script>
+  <script>
+    tty.on('connect', function(){
+      var win = new tty.Window
+      //win.maximize();
+      win.element.className = "window-full"
+      win.on('open', function(){
+        win.maximize();
+      })
+    })
+  </script>
+</body>
